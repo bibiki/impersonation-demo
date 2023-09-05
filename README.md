@@ -6,7 +6,7 @@ Sometimes a user with some role wants to see the app as another user with possib
 The correct way to do it
 ========================
 
-If you use Keycloak to authenticate your app's users and you have admin access to Keycloak, the correct way to impersonate them requires 0 lines of code. You simply login on Keycloak as admin, navigate to users, and select the user that you want to impersonate. In the upper left corner, there will be an Actions button. Select impersonate, and voila, you are impersonating. Now in that same browser instance, navigate to your app and you will have logged in as the impersonated user. If you are already logged in on your app, this may malfunction so it is best that you log out of your app before trying this.
+If you use Keycloak to authenticate your app's users and you have admin access to Keycloak, the correct way to impersonate them requires 0 lines of code. You simply login on Keycloak as admin, navigate to users, and select the user that you want to impersonate. In the upper right corner, there will be an Actions button. Select impersonate, and voila, you are impersonating. Now in that same browser instance, navigate to your app and you will have logged in as the impersonated user. If you are already logged in on your app, this may malfunction so it is best that you log out of your app before trying this.
 
 But if you really really want to write code, then this repo shows how you can do that.
 
@@ -46,3 +46,5 @@ This code does not include any protection of the user impersonation functionalit
 The relevant confguration for impersonation is in ConfigureKeycloakSpringSecurity.java.
 
 SwitchUserFilter is provided with a userDetailsService to be able to load the user being impersonated. This userDetailsService retrieves users from a database that is local to the application. Some other UserDetailsService could retrieve them from Keycloak, if Keycloak exposes an endpoint for that.
+
+Also, I used a filter to change the type of authentication principal. It might very well be better to use something in the AuthenticationManager and AuthenticationProvider part of Spring Security for this.
